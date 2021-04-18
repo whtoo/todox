@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img alt="Vue logo" src="./assets/logo.png" >
+    <HelloWorld msg="Welcome to Your Vue.js App" :seen="seen" :todos="todos"/>
   </div>
 </template>
 
@@ -10,6 +10,15 @@ import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
+  data ()  { 
+    return { 
+      todos: [
+        {id: 1, name:'To init a Vue project.',checked: true},
+        {id: 2, name:'To implement a list view.',checked: false},
+    ],
+    seen : true
+    }
+  },
   components: {
     HelloWorld
   }

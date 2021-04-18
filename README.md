@@ -1,6 +1,16 @@
 # todox
 
-## Project setup
+## Project overview
+This is a personal todo-x project, and x means for anything in my daily workflow.
+
+### Todo
+- [ ] Build a simple todo list in plain list format.
+    - [ ] Build a list component
+    - [ ] Build a todo item component in a list
+    - [ ] Build a view model to control UI
+
+## Building commands
+### Project setup
 ```
 yarn install
 ```
@@ -20,5 +30,4 @@ yarn build
 yarn lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
