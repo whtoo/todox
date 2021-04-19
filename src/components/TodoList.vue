@@ -1,6 +1,9 @@
 <template>
   <div class="todos" >
-    <div >Remain {{ seconds }} seconds</div>
+    <div>
+      <input type="text" v-model="todoitem" placeholder="input your task description" />
+      <h4> {{ todoitem }} </h4>
+    </div>
     <ul v-if="seen">
       <li v-for="item in todos" :key="item.id" class="todo-item">
         <input class="todo-item-checkbox" type="checkbox" v-model="item.checked" />
@@ -12,7 +15,7 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'TodoList',
   props: {
     msg: String,
     seen: Boolean,
@@ -21,7 +24,8 @@ export default {
   data() {
     return {
       seconds: 0,
-      checked: false
+      checked: false,
+      todoitem: ""
     }
   },
   created() {
