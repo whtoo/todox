@@ -1,12 +1,12 @@
 <template>
   <div class="todos" >
     <div>
-      <input type="text" v-model="todoitem" placeholder="input your task description" />
+      <input type="text" v-model="todoitem" placeholder="input your task description" v-on:keyup.enter="submit"/>
       <h4> {{ todoitem }} </h4>
     </div>
     <ul v-if="seen">
-      <li v-for="item in todos" :key="item.id" class="todo-item">
-        <input class="todo-item-checkbox" type="checkbox" v-model="item.checked" />
+      <li v-for="item in $store.getTodoItems()" :key="item.id" class="todo-item">
+        <input class="todo-item-checkbox" type="checkbox" v-model="item.checked" v-on:click="$store.checkTodoItem(item.id)"/>
         <div class="todo-item-title">{{ item.name }}</div>
       </li>
     </ul>
@@ -29,11 +29,18 @@ export default {
     }
   },
   created() {
-    console.log(`Component ${this.name} is created.`)
-    setInterval(() => {
-      this.seconds++;
-    },1000);
+    console.log(`Component ${this.$store} is created.`)
+  },
+  methods: {
+    submit: function() {
+        if(this.todoitem.length == 0) return;
+
+        this.$store.addTodoItem({name:this.todoitem,checked: false});
+
+        this.todoitem = null;
+    },
   }
+ 
 }
 </script>
 
