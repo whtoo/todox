@@ -5,7 +5,7 @@ This is a personal todo-x project, and x means for anything in my daily workflow
 
 
 ### TODO
-- [ ] Add `status filter` search and `name` search.
+- [x] Add `status filter` search and `name` search.
 - [ ] Optimize CURD operations on TODO features.
 - [ ] Add `CSS3` support.
 ### Done

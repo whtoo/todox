@@ -1,21 +1,23 @@
 <template>
   <div class="todos" >
     <div>
-      <input type="text" v-model="todoitem" placeholder="input your task description" v-on:keyup.enter="submit"/>
+      <input type="text" v-model="todoitem" placeholder="input your task description" @keyup.enter="submit"/>
       <h4> {{ todoitem }} </h4>
     </div>
     <ul class="todo-items">
-      <li v-for="item in $store.filtedTodoItems()" :key="item.id" class="todo-item">
+      <li v-for="item in $store.searchTitleInTodoItems()" :key="item.id" class="todo-item">
         <input class="todo-item-checkbox" type="checkbox" :checked="checkStatus(item.id)" placeholder="" v-on:click="$store.checkTodoItem(item.id)"/>
         <div :class="{'todo-item-title':true, 'completed':checkStatus(item.id)}">{{ item.name }}</div>
       </li>
-    </ul>    
-    <TodoFilter filterString="Completed" />
+    </ul>  
+    <TodoSearchBar />  
+    <TodoFilter filterString="All" />
   </div>
 </template>
 
 <script>
 import TodoFilter from './TodoFilter.vue';
+import TodoSearchBar from './TodoSearchBar.vue';
 
 export default {
   name: 'TodoList',
@@ -40,7 +42,10 @@ export default {
         return this.$store.getTodoItem(id).status === 'completed';
     }
   },
-  components:{TodoFilter}
+  components: {
+    TodoFilter,
+    TodoSearchBar
+  }
  
 }
 </script>

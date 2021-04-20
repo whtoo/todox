@@ -31,6 +31,7 @@ let todoItems = {
         todoList : localStorage.getItem(TODO_ITEMS) != null ? JSON.parse(localStorage.getItem(TODO_ITEMS)) : [],
         _maxAaviliableID : 0,
         _filterCondition : "all",
+        _searchKey : null,
     },
     getters : {
         getTodoItem : function(id) {
@@ -52,6 +53,17 @@ let todoItems = {
             }
             
             return this._maxAaviliableID++;
+        },
+        searchTitleInTodoItems: function() {
+            if(this._searchKey === null || this._searchKey === '') return this.filtedTodoItems();
+            const searchResults = [];
+            const regex = new RegExp(this._searchKey);
+            for(const item of this.filtedTodoItems()){
+                if(regex.test(item.name)){
+                    searchResults.push(item);
+                }
+            }
+            return searchResults;
         }
     },
     methods : {
@@ -84,6 +96,9 @@ let todoItems = {
         },
         changeFilterCondition : function(key){
             this._filterCondition = key;
+        },
+        searchByKeyWords : function(key){
+            this._searchKey = key;
         }
     }
 }
