@@ -6,8 +6,9 @@ This is a personal todo-x project, and x means for anything in my daily workflow
 
 ### TODO
 - [x] Add `status filter` search and `name` search.
-- [ ] Optimize CURD operations on TODO features.
+- [x] Optimize CURD operations on TODO features.
 - [ ] Add `CSS3` support.
+- [ ] Make it looks beautiful.
 ### Done
 - [x] Build a simple todo list in plain list format.
     - [x] Build a list component
