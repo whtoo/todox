@@ -24,10 +24,13 @@ const TODO_ITEMS = 'x-todo-items-key';
     return store
 }
 
+//onst conditions = ['all','completed','active'];
+
 let todoItems = {
     properties : {
         todoList : localStorage.getItem(TODO_ITEMS) != null ? JSON.parse(localStorage.getItem(TODO_ITEMS)) : [],
         _maxAaviliableID : 0,
+        _filterCondition : "all",
     },
     getters : {
         getTodoItem : function(id) {
@@ -36,25 +39,25 @@ let todoItems = {
         getTodoItems : function() {
             return this.todoList;
         },
-        filterTodoItems : function(key) {
-            if(key === 'all') {
-                this.getTodoItem();
+        filtedTodoItems : function() {
+            if(this._filterCondition === 'all') {
+                return this.getTodoItems();
             } else {
-                this.getTodoItem().filter(val => val.status === key);
+                return this.getTodoItems().filter(val => val.status === this._filterCondition);
             }
         },
         getAvaliableID : function() {
             if(this._maxAaviliableID === -1) {
                 this._maxAaviliableID = Math.max(this.todoList.map(val => val.id),this._maxAaviliableID);
             }
-    
-            return this._maxAaviliableID;
+            
+            return this._maxAaviliableID++;
         }
     },
     methods : {
         checkTodoItem : function(id) {
             const item = this.getTodoItem(id);
-            item.checked = !item.checked;
+            item.status = item.status === 'completed'? 'active' : 'completed';
             this.syncLocalStore();
         },
         setTodoItem : function(id,item) {
@@ -67,7 +70,7 @@ let todoItems = {
         addTodoItem : function(item) {
             if(item != null) {
                 const id = this.getAvaliableID();
-                Object.assign(item,{id});
+                Object.assign(item,{id,status:'active'});
                 this.todoList.push(item)
             }
             this.syncLocalStore();
@@ -78,6 +81,9 @@ let todoItems = {
         },
         syncLocalStore : function() {
             localStorage.setItem(TODO_ITEMS,JSON.stringify(this.todoList));
+        },
+        changeFilterCondition : function(key){
+            this._filterCondition = key;
         }
     }
 }

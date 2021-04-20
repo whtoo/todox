@@ -4,27 +4,23 @@
       <input type="text" v-model="todoitem" placeholder="input your task description" v-on:keyup.enter="submit"/>
       <h4> {{ todoitem }} </h4>
     </div>
-    <ul v-if="seen">
-      <li v-for="item in $store.getTodoItems()" :key="item.id" class="todo-item">
-        <input class="todo-item-checkbox" type="checkbox" v-model="item.checked" v-on:click="$store.checkTodoItem(item.id)"/>
-        <div class="todo-item-title">{{ item.name }}</div>
+    <ul class="todo-items">
+      <li v-for="item in $store.filtedTodoItems()" :key="item.id" class="todo-item">
+        <input class="todo-item-checkbox" type="checkbox" :checked="checkStatus(item.id)" placeholder="" v-on:click="$store.checkTodoItem(item.id)"/>
+        <div :class="{'todo-item-title':true, 'completed':checkStatus(item.id)}">{{ item.name }}</div>
       </li>
-    </ul>
+    </ul>    
+    <TodoFilter filterString="Completed" />
   </div>
 </template>
 
 <script>
+import TodoFilter from './TodoFilter.vue';
+
 export default {
   name: 'TodoList',
-  props: {
-    msg: String,
-    seen: Boolean,
-    todos: Array
-  },
   data() {
     return {
-      seconds: 0,
-      checked: false,
       todoitem: ""
     }
   },
@@ -35,11 +31,16 @@ export default {
     submit: function() {
         if(this.todoitem.length == 0) return;
 
-        this.$store.addTodoItem({name:this.todoitem,checked: false});
+        this.$store.addTodoItem({name:this.todoitem});
 
         this.todoitem = null;
     },
-  }
+    checkStatus: function(id) {
+      console.log(this.$store.getTodoItem(id).status);
+        return this.$store.getTodoItem(id).status === 'completed';
+    }
+  },
+  components:{TodoFilter}
  
 }
 </script>
@@ -53,11 +54,17 @@ ul {
   list-style-type: none;
   padding: 0;
 }
+ul.todo-items{
+  height: 10em;
+}
 li.todo-item {
   display: flex;
   margin: 1em;
   align-items: center;
   justify-content: center;
+}
+li.todo-item  div.completed{
+  text-decoration: line-through;
 }
 a {
   color: #42b983;
