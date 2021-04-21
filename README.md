@@ -5,12 +5,11 @@ This is a personal todo-x project, and x means for anything in my daily workflow
 
 
 ### TODO
-- [ ] Make it looks beautiful.
-- [ ] Add editing on task item for editing task title and description.
 - [ ] Add `CSS3` support.
     - [ ] Add flex layout support.
+- [ ] Make it looks beautiful.
+- [ ] Add editing on task item for editing task title and description.
 - [ ] Add routing.
-
 ### Done
 - [x] Add `status filter` search and `name` search.
 - [x] Optimize CURD operations on TODO features.
@@ -20,6 +19,7 @@ This is a personal todo-x project, and x means for anything in my daily workflow
     - [x] Build a `view model` to control UI
 - [x] Add custom `store pattern` implementation
 - [x] Add `event` handlers based on `v-on`
+- [x] Add throttle for searching.
 
 
 ## Building commands
