@@ -1,7 +1,6 @@
 <template>
-    <div class="todo-searchbar">
+    <div class="todo-searchbar" v-show="$store.hasTodoItems()">
         <input type="text" v-model="searchKey" placeholder="input your search key" />
-        <h4> {{ searchKey }} </h4>
     </div>
 </template>
 

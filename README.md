@@ -10,6 +10,7 @@ This is a personal todo-x project, and x means for anything in my daily workflow
 - [ ] Make it looks beautiful.
 - [ ] Add editing on task item for editing task title and description.
 - [ ] Add routing.
+
 ### Done
 - [x] Add `status filter` search and `name` search.
 - [x] Optimize CURD operations on TODO features.
@@ -20,6 +21,8 @@ This is a personal todo-x project, and x means for anything in my daily workflow
 - [x] Add custom `store pattern` implementation
 - [x] Add `event` handlers based on `v-on`
 - [x] Add throttle for searching.
+- [x] Add conditional render for task list.
+- [x] Add remove task.
 
 
 ## Building commands

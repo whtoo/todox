@@ -34,6 +34,9 @@ let todoItems = {
         _searchKey : null,
     },
     getters : {
+        hasTodoItems : function() {
+            return this.searchTitleInTodoItems().length > 0
+        },
         getTodoItem : function(id) {
             return this.todoList.find(val => val.id == id);
         },

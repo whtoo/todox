@@ -2,14 +2,17 @@
   <div class="todos" >
     <div>
       <input type="text" v-model="todoitem" placeholder="input your task description" @keyup.enter="submit"/>
-      <h4> {{ todoitem }} </h4>
     </div>
-    <ul class="todo-items">
+    <ul class="todo-items" v-if="$store.hasTodoItems()">
       <li v-for="item in $store.searchTitleInTodoItems()" :key="item.id" class="todo-item">
         <input class="todo-item-checkbox" type="checkbox" :checked="checkStatus(item.id)" placeholder="" v-on:click="$store.checkTodoItem(item.id)"/>
         <div :class="{'todo-item-title':true, 'completed':checkStatus(item.id)}">{{ item.name }}</div>
+        <button type="button" class="todo-delete-btn" @click="removeTask(item.id)">X</button>
       </li>
     </ul>  
+    <div v-else>
+      <p>快来添加你的第一个待办事项吧！</p>
+    </div>
     <TodoSearchBar />  
     <TodoFilter filterString="All" />
   </div>
@@ -26,9 +29,6 @@ export default {
       todoitem: ""
     }
   },
-  created() {
-    console.log(`Component ${this.$store} is created.`)
-  },
   methods: {
     submit: function() {
         if(this.todoitem.length == 0) return;
@@ -38,8 +38,10 @@ export default {
         this.todoitem = null;
     },
     checkStatus: function(id) {
-      console.log(this.$store.getTodoItem(id).status);
         return this.$store.getTodoItem(id).status === 'completed';
+    },
+    removeTask: function(id) {
+      this.$store.removeTodoItem(id);
     }
   },
   components: {
