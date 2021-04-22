@@ -8,7 +8,6 @@ This is a personal todo-x project, and x means for anything in my daily workflow
 - [ ] Add `CSS3` support.
     - [ ] Add flex layout support.
 - [ ] Make it looks beautiful.
-- [ ] Add editing on task item for editing task title and description.
 - [ ] Add routing.
 
 ### Done
@@ -23,6 +22,7 @@ This is a personal todo-x project, and x means for anything in my daily workflow
 - [x] Add throttle for searching.
 - [x] Add conditional render for task list.
 - [x] Add remove task.
+- [x] Add editing on task item for editing task title and description.
 
 
 ## Building commands
