@@ -35,7 +35,7 @@ let todoItems = {
     },
     getters : {
         hasTodoItems : function() {
-            return this.searchTitleInTodoItems().length > 0
+            return this.todoList.length > 0
         },
         getTodoItem : function(id) {
             return this.todoList.find(val => val.id == id);
@@ -51,10 +51,10 @@ let todoItems = {
             }
         },
         getAvaliableID : function() {
-            if(this._maxAaviliableID === -1) {
-                this._maxAaviliableID = Math.max(this.todoList.map(val => val.id),this._maxAaviliableID);
+            if(this._maxAaviliableID === 0) {
+                this._maxAaviliableID = Math.max(...this.todoList.map(val => val.id),this._maxAaviliableID) + 1;
             }
-            
+            console.log("max id "+ this._maxAaviliableID);
             return this._maxAaviliableID++;
         },
         searchTitleInTodoItems: function() {
@@ -77,8 +77,9 @@ let todoItems = {
         },
         setTodoItem : function(id,item) {
             let ret = this.getTodoItem(id);
+            console.log('fetch id ' + id + ': ' + ret);
             if(ret != null) {
-                Object.assign(item,ret);
+                Object.assign(ret,item);
             }
             this.syncLocalStore();
         },
@@ -103,7 +104,7 @@ let todoItems = {
         searchByKeyWords : function(key){
             this._searchKey = key;
         }
-    }
+    },
 }
 
 
