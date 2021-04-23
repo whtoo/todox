@@ -20,7 +20,7 @@ export default {
             if(this.searchKeyAction == null){
                 this.searchKeyAction = _.throttle(()=>{
                     this.$store.searchByKeyWords(this.inputKey);
-                })
+                },100)
             }
             return this.searchKeyAction;
         }
