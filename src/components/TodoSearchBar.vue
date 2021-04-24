@@ -1,7 +1,7 @@
 <template>
     <div class="todo-searchbar" v-show="$store.hasTodoItems()">
         <div></div>
-        <input type="text" v-model="searchKey" placeholder="input your search key" />
+        <input type="text" v-model="searchKey" :placeholder="$t('message.searchTips')" />
         <div></div>
     </div>
 </template>

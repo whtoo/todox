@@ -6,7 +6,7 @@
         type="text"
         v-show="!isEditing"
         v-model="todoitem"
-        placeholder="input your task description"
+        :placeholder="$t('message.inputTaskTips')"
         @keyup.enter.prevent="submit"
       />
       <div class="fs"></div>
@@ -61,7 +61,7 @@
       </transition-group>
     </ul>
     <div v-else>
-      <p class="empty-tip">快来添加你的第一个待办事项吧！</p>
+      <p class="empty-tip">{{ $t("message.emtpyTips") }}</p>
     </div>
     <TodoSearchBar />
     <TodoFilter filterString="All" />

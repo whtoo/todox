@@ -13,6 +13,7 @@
     "lodash": "^4.17.21",
     "velocity-animate": "^1.5.2",
     "vue": "^2.6.11",
+    "vue-i18n": "^8.24.3",
     "vue-material": "^1.0.0-beta-15",
     "vue-router": "^3.5.1"
   },
