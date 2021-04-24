@@ -1,8 +1,12 @@
 <template>
-  <div id="todo-filter" v-show="$store.hasTodoItems()">
-    <button type="button" :class="{active : selectedID === 0,inactive : selectedID !== 0}" @click="submit('all',0)" >All</button>
-    <button type="button" :class="{active : selectedID === 1,inactive : selectedID !== 1}" @click="submit('active',1)" >Active</button>
-    <button type="button" :class="{active : selectedID === 2,inactive : selectedID !== 2}" @click="submit('completed',2)">Completed</button>
+  <div class="todo-filter" v-show="$store.hasTodoItems()">
+    <span></span>
+    <button type="button" :class="{active : selectedID === 0}" @click="submit('all',0)" >All</button>
+    <span></span>
+    <button type="button" :class="{active : selectedID === 1}" @click="submit('active',1)" >Active</button>
+    <span></span>
+    <button type="button" :class="{active : selectedID === 2}" @click="submit('completed',2)">Completed</button>
+    <span></span>
   </div>
 </template>
 
@@ -28,12 +32,25 @@ export default {
 </script>
 
 <style scoped>
+
+.todo-filter {
+    margin: 1em auto;
+    max-width: 524px;
+    display: flex;
+    justify-content: center;
+}
+
 button.active {
     background-color:lightseagreen;
 }
 
-button.inactive {
+span{
+  flex: 3;
+}
+
+button{
     background-color: #94e6db;
+    flex:4;
 }
 
 </style>

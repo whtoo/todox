@@ -1,6 +1,8 @@
 <template>
     <div class="todo-searchbar" v-show="$store.hasTodoItems()">
+        <div></div>
         <input type="text" v-model="searchKey" placeholder="input your search key" />
+        <div></div>
     </div>
 </template>
 
@@ -41,7 +43,18 @@ export default {
 </script>
 
 <style scoped>
+div.todo-searchbar {
+    max-width: 524px;
+    display: flex;
+    margin: 0.5em auto;
+}
+
 div.todo-searchbar input{
     border: 2px solid rgb(64, 150, 117);
+    flex: 8;
+    padding: 0.5em;
+}
+div.todo-searchbar div {
+    flex: 1;
 }
 </style>
