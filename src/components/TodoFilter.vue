@@ -34,10 +34,11 @@ export default {
 <style scoped>
 
 .todo-filter {
-    margin: 1em auto;
+    margin: 0px auto;
     max-width: 524px;
     display: flex;
     justify-content: center;
+    padding : 1em;
 }
 
 button.active {

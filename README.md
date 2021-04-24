@@ -5,7 +5,6 @@ This is a personal todo-x project, and x means for anything in my daily workflow
 
 
 ### TODO
-- [ ] Make it looks beautiful.
 - [ ] Add routing.
 
 ### Done
@@ -23,6 +22,8 @@ This is a personal todo-x project, and x means for anything in my daily workflow
 - [x] Add editing on task item for editing task title and description.
 - [x] Add `CSS3` support.
     - [x] Add flex layout support.
+- [x] Make it looks beautiful.
+- [x] Add enter-leave animation transitions.
 
 ## Building commands
 ### Project setup

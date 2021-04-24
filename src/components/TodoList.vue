@@ -12,47 +12,56 @@
       <div class="fs"></div>
     </div>
     <ul class="todo-items" v-if="$store.hasTodoItems()">
-      <li
-        v-for="item in $store.searchTitleInTodoItems()"
-        :key="item.id"
-        class="todo-item"
+      <transition-group
+        name="staggered-fade"
+        tag="ul"
+        v-bind:css="false"
+        v-on:before-enter="beforeEnter"
+        v-on:enter="enter"
+        v-on:leave="leave"
       >
-        <input
-          v-if="isEditing && item == editedTodo"
-          v-model="item.name"
-          v-todo-focus="item == editedTodo"
-          @blur="doneEdit(item)"
-          @keydown.enter="doneEdit(item)"
-          @keydown.esc="cancelEdit(item)"
-        />
-        <div v-else>
+        <li
+          v-for="item in $store.searchTitleInTodoItems()"
+          :key="item.id"
+          class="todo-item"
+        >
           <input
-            type="checkbox"
-            :checked="checkStatus(item.id)"
-            placeholder=""
-            v-on:click="$store.checkTodoItem(item.id)"
+            v-if="isEditing && item == editedTodo"
+            v-model="item.name"
+            v-todo-focus="item == editedTodo"
+            @blur="doneEdit(item)"
+            @keydown.enter="doneEdit(item)"
+            @keydown.esc="cancelEdit(item)"
           />
-          <div
-            :class="{
-              'todo-item-title': true,
-              completed: checkStatus(item.id),
-            }"
-            @dblclick.prevent="editTask(item)"
-          >
-            {{ item.name }}
+          <div v-else>
+            <input
+              type="checkbox"
+              :checked="checkStatus(item.id)"
+              placeholder=""
+              v-on:click="$store.checkTodoItem(item.id)"
+            />
+            <div
+              :class="{
+                'todo-item-title': true,
+                completed: checkStatus(item.id),
+              }"
+              @dblclick.prevent="editTask(item)"
+            >
+              {{ item.name }}
+            </div>
+            <button
+              type="button"
+              class="todo-delete-btn"
+              @click="removeTask(item.id)"
+            >
+              X
+            </button>
           </div>
-          <button
-            type="button"
-            class="todo-delete-btn"
-            @click="removeTask(item.id)"
-          >
-            X
-          </button>
-        </div>
-      </li>
+        </li>
+      </transition-group>
     </ul>
     <div v-else>
-      <p>快来添加你的第一个待办事项吧！</p>
+      <p class="empty-tip">快来添加你的第一个待办事项吧！</p>
     </div>
     <TodoSearchBar />
     <TodoFilter filterString="All" />
@@ -62,6 +71,7 @@
 <script>
 import TodoFilter from "./TodoFilter.vue";
 import TodoSearchBar from "./TodoSearchBar.vue";
+import Velocity from "velocity-animate";
 
 export default {
   name: "TodoList",
@@ -93,25 +103,41 @@ export default {
     },
     doneEdit: function (todo) {
       if (!this.editedTodo) {
-          return;
-        }
-        this.isEditing = false;
-        this.editedTodo = null;
-        todo.name = todo.name.trim();
-        if (!todo.name) {
-          this.removeTask(todo.id);
-        }
+        return;
+      }
+      this.isEditing = false;
+      this.editedTodo = null;
+      todo.name = todo.name.trim();
+      if (!todo.name) {
+        this.removeTask(todo.id);
+      }
     },
-    cancelEdit: function(todo){
-       if (!this) {
+    cancelEdit: function (todo) {
+      if (!this) {
         return;
       }
       this.isEditing = false;
       todo.name = this.beforeEditCache;
       this.editedTodo = null;
-    }
+    },
+    beforeEnter: function (el) {
+      el.style.opacity = 0;
+      el.style.height = 0;
+    },
+    enter: function (el, done) {
+      var delay = el.dataset.index * 150;
+      setTimeout(function () {
+        Velocity(el, { opacity: 1, height: "1.6em" }, { complete: done });
+      }, delay);
+    },
+    leave: function (el, done) {
+      var delay = el.dataset.index * 150;
+      setTimeout(function () {
+        Velocity(el, { opacity: 0, height: 0 }, { complete: done });
+      }, delay);
+    },
   },
-  
+
   directives: {
     "todo-focus": function (el, binding) {
       if (binding.value) {
@@ -137,14 +163,14 @@ div.search-box {
 }
 div.search-box input {
   padding: 0.5em 1em;
-  flex : 4;
-  border: 1px solid #39862b;
+  flex: 8;
+  border: 2px solid #39862b;
 }
-div.search-box input:focus-visible{
-  border: 1px solid #52bf3e;
+div.search-box input:focus-visible {
+  border: 2px solid #52bf3e;
 }
 div.search-box .fs {
-  flex: 1
+  flex: 1;
 }
 
 h3 {
@@ -153,18 +179,18 @@ h3 {
 ul {
   list-style-type: none;
   padding: 0;
-  overflow:scroll;
+  overflow: scroll;
 }
 ul.todo-items {
-    height: 10em;
-    margin: 2em auto;
-    max-width: 524px;
+  height: 10em;
+  margin: 2em auto;
+  max-width: 524px;
 }
 li.todo-item {
-    display: inline-flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
 li.todo-item > div {
@@ -180,19 +206,21 @@ li.todo-item > div > input {
 }
 
 li.todo-item > div > button {
-    width: 2em;
-    font-size: 10px;
-    padding: 2px;
+  width: 2em;
+  font-size: 10px;
+  padding: 2px;
 }
-li.todo-item > div > div.todo-item-title{
-    flex: 1;
-    text-align: left;
-    border-bottom: 1px solid #bfbfbf;
+li.todo-item > div > div.todo-item-title {
+  flex: 1;
+  text-align: left;
+  border-bottom: 1px solid #bfbfbf;
 }
 li.todo-item div.completed {
   text-decoration: line-through;
 }
-
+.empty-tip {
+  padding: 1em;
+}
 a {
   color: #42b983;
 }

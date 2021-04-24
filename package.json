@@ -11,6 +11,7 @@
     "ant-design-vue": "^1.7.4",
     "core-js": "^3.6.5",
     "lodash": "^4.17.21",
+    "velocity-animate": "^1.5.2",
     "vue": "^2.6.11",
     "vue-material": "^1.0.0-beta-15",
     "vue-router": "^3.5.1"
