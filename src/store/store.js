@@ -60,7 +60,8 @@ let todoItems = {
         searchTitleInTodoItems: function() {
             if(this._searchKey === null || this._searchKey === '') return this.filtedTodoItems();
             const searchResults = [];
-            const regex = new RegExp(this._searchKey);
+            const regex = new RegExp(this._searchKey,'ig');
+            
             for(const item of this.filtedTodoItems()){
                 if(regex.test(item.name)){
                     searchResults.push(item);

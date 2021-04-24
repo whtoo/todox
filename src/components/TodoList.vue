@@ -11,19 +11,12 @@
       />
       <div class="fs"></div>
     </div>
-    <ul class="todo-items" v-if="$store.hasTodoItems()">
-      <transition-group
-        name="staggered-fade"
-        tag="ul"
-        v-bind:css="false"
-        v-on:before-enter="beforeEnter"
-        v-on:enter="enter"
-        v-on:leave="leave"
-      >
+    <ul class="todo-items" v-show="$store.hasTodoItems()">
+        <transition-group name="list-complete" tag="div">
         <li
           v-for="item in $store.searchTitleInTodoItems()"
           :key="item.id"
-          class="todo-item"
+          class="todo-item list-complete-item"
         >
           <input
             v-if="isEditing && item == editedTodo"
@@ -58,9 +51,9 @@
             </button>
           </div>
         </li>
-      </transition-group>
+       </transition-group>
     </ul>
-    <div v-else>
+    <div v-show="!$store.hasTodoItems()">
       <p class="empty-tip">{{ $t("message.emtpyTips") }}</p>
     </div>
     <TodoSearchBar />
@@ -71,7 +64,7 @@
 <script>
 import TodoFilter from "./TodoFilter.vue";
 import TodoSearchBar from "./TodoSearchBar.vue";
-import Velocity from "velocity-animate";
+
 
 export default {
   name: "TodoList",
@@ -120,28 +113,13 @@ export default {
       todo.name = this.beforeEditCache;
       this.editedTodo = null;
     },
-    beforeEnter: function (el) {
-      el.style.opacity = 0;
-      el.style.height = 0;
-    },
-    enter: function (el, done) {
-      var delay = el.dataset.index * 150;
-      setTimeout(function () {
-        Velocity(el, { opacity: 1, height: "1.6em" }, { complete: done });
-      }, delay);
-    },
-    leave: function (el, done) {
-      var delay = el.dataset.index * 150;
-      setTimeout(function () {
-        Velocity(el, { opacity: 0, height: 0 }, { complete: done });
-      }, delay);
-    },
+  
+   
   },
 
   directives: {
     "todo-focus": function (el, binding) {
       if (binding.value) {
-        console.log(el, binding.value);
         el.focus();
       }
     },
@@ -191,6 +169,21 @@ li.todo-item {
   width: 100%;
   justify-content: center;
   align-items: center;
+}
+
+.list-complete-item {
+  transition: all 0.5s;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.list-complete-enter, .list-complete-leave-to
+/* .list-complete-leave-active for below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.list-complete-leave-active {
+  position: absolute;
 }
 
 li.todo-item > div {
