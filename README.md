@@ -5,8 +5,6 @@ This is a personal todo-x project, and x means for anything in my daily workflow
 
 
 ### TODO
-- [ ] Add `CSS3` support.
-    - [ ] Add flex layout support.
 - [ ] Make it looks beautiful.
 - [ ] Add routing.
 
@@ -23,7 +21,8 @@ This is a personal todo-x project, and x means for anything in my daily workflow
 - [x] Add conditional render for task list.
 - [x] Add remove task.
 - [x] Add editing on task item for editing task title and description.
-
+- [x] Add `CSS3` support.
+    - [x] Add flex layout support.
 
 ## Building commands
 ### Project setup
